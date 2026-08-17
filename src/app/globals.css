@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* ---- Palette: warm neutral paper, near-black ink, one accent ---- */
+  --color-paper: #faf7f1;
+  --color-card: #fffefb;
+  --color-wash: #f3eee4;
+  --color-ink: #1c1913;
+  --color-soft: #6e675a;
+  --color-faint: #a29a89;
+  --color-line: #e4ddcf;
+  --color-linedark: #cfc7b6;
+  --color-accent: #d9481f;
+  --color-accentink: #b2360f;
+  --color-accentwash: #f9e7df;
+
+  /* ---- Type system ---- */
+  --font-serif: var(--font-fraunces), "Iowan Old Style", Georgia, serif;
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, "SFMono-Regular", monospace;
+}
+
+::selection {
+  background: #f3cfc2;
+  color: #1c1913;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-feature-settings: "ss01", "cv11";
+}
+
+/* Small analytical label — used everywhere for annotations */
+.annotation {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Editorial display headings */
+.display {
+  font-family: var(--font-serif);
+  font-variation-settings: "opsz" 90;
+  letter-spacing: -0.015em;
+}
+
+/* Underlined editorial link */
+.link-editorial {
+  text-decoration: underline;
+  text-decoration-color: var(--color-linedark);
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+  transition: text-decoration-color 150ms ease, color 150ms ease;
+}
+.link-editorial:hover {
+  color: var(--color-accent);
+  text-decoration-color: var(--color-accent);
+}
+
+/* Marker-style highlight for key phrases */
+.marker {
+  background-image: linear-gradient(
+    to top,
+    rgba(217, 72, 31, 0.16) 0%,
+    rgba(217, 72, 31, 0.16) 42%,
+    transparent 42%
+  );
+  padding: 0 0.1em;
+}
+
+/* Dotted "graph paper" background for evidence figures & hero */
+.graph-paper {
+  background-image: radial-gradient(var(--color-linedark) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* Subtle rise-on-scroll entrance (no JS, restrained) */
+@media (prefers-reduced-motion: no-preference) {
+  .rise {
+    animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .rise-1 { animation-delay: 0.06s; }
+  .rise-2 { animation-delay: 0.14s; }
+  .rise-3 { animation-delay: 0.22s; }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+/* Card hover: hairline shift, not a shadow festival */
+.card-hover {
+  transition: border-color 180ms ease, transform 180ms ease,
+    box-shadow 180ms ease;
+}
+.card-hover:hover {
+  border-color: var(--color-ink);
+  transform: translateY(-2px);
+  box-shadow: 0 1px 0 var(--color-ink);
+}
