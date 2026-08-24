@@ -39,6 +39,13 @@ export interface ParagraphBlock {
   text: string;
 }
 
+/** A narrative beat inside one of the eight reusable study sections. */
+export interface SectionHeadingBlock {
+  type: "section-heading";
+  title: string;
+  eyebrow?: string;
+}
+
 /** A highlighted observation — rendered with a marker underline. */
 export interface HighlightBlock {
   type: "highlight";
@@ -74,13 +81,48 @@ export interface FigureBlock {
   caption: string;
   src?: string;
   note?: string;
+  placeholderLabel?: string;
+  fit?: "cover" | "contain";
+}
+
+/** A compact, data-backed horizontal bar chart. */
+export interface BarChartBlock {
+  type: "bar-chart";
+  title: string;
+  items: { label: string; value: number; displayValue: string }[];
+  note?: string;
+}
+
+/** Side-by-side public results for matched subjects without misleading scale. */
+export interface MatchedPerformanceBlock {
+  type: "matched-performance";
+  title?: string;
+  matches: {
+    topic: string;
+    left: { label: string; value: string };
+    right: { label: string; value: string };
+    ratio?: string;
+  }[];
+  note?: string;
 }
 
 /** Numbered framework / step list. */
 export interface FrameworkBlock {
   type: "framework";
   title?: string;
-  steps: { title: string; text: string }[];
+  steps: { title: string; text?: string }[];
+}
+
+/** Reusable top-line diagnosis for research-led channel and brand audits. */
+export interface DiagnosisCardBlock {
+  type: "diagnosis-card";
+  items: { label: string; value: string }[];
+}
+
+/** A short, attributable editorial conclusion from David Ekis. */
+export interface EkisNoteBlock {
+  type: "ekis-note";
+  text: string;
 }
 
 /** Side-by-side comparison. */
@@ -99,12 +141,17 @@ export interface TableBlock {
 
 export type Block =
   | ParagraphBlock
+  | SectionHeadingBlock
   | HighlightBlock
   | QuoteBlock
   | StatsBlock
   | CalloutBlock
   | FigureBlock
+  | BarChartBlock
+  | MatchedPerformanceBlock
   | FrameworkBlock
+  | DiagnosisCardBlock
+  | EkisNoteBlock
   | ComparisonBlock
   | TableBlock;
 
@@ -129,6 +176,8 @@ export interface BreakdownSections {
   howIWouldApply: Block[];
   /** Strongest lessons, summarized. */
   keyTakeaways: string[];
+  /** Optional final attributed editorial note. */
+  closingNote?: string;
 }
 
 export interface Breakdown {
@@ -137,6 +186,7 @@ export interface Breakdown {
   number: string;
   title: string;
   category: Category;
+  categoryLabel?: string;
   tags: string[];
   /** One-line insight shown on cards. */
   insight: string;
@@ -145,6 +195,20 @@ export interface Breakdown {
   readingTime: number;
   date: string; // ISO
   featured?: boolean;
+  /** Optional article/card label for named Field Notes. */
+  eyebrow?: string;
+  channel?: string;
+  comparisonChannel?: string;
+  problem?: string;
+  question?: string;
   visual: VisualKind;
   sections: BreakdownSections;
+  researchDate?: string;
+  sources?: { label: string; url?: string }[];
 }
+
+/** Authoring shape; named Field Notes may provide their own public number. */
+export type BreakdownInput = Omit<Breakdown, "number"> & { number?: string };
+
+/** Card and search data safe to serialize to the client library explorer. */
+export type BreakdownSummary = Omit<Breakdown, "sections" | "sources">;

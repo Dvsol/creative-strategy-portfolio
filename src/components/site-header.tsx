@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const NAV = [
   { href: "/", label: "Home" },
@@ -14,11 +14,6 @@ const NAV = [
 export function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-
-  // Close the mobile menu on navigation.
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
@@ -76,6 +71,7 @@ export function SiteHeader() {
               <li key={item.href} className={i > 0 ? "border-t border-line" : ""}>
                 <Link
                   href={item.href}
+                  onClick={() => setOpen(false)}
                   aria-current={isActive(item.href) ? "page" : undefined}
                   className={`flex items-center justify-between py-3 text-sm font-medium ${
                     isActive(item.href) ? "text-accent" : "text-ink"

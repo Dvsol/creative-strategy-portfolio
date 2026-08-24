@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { Breakdown } from "@/lib/breakdowns/types";
+import type { BreakdownSummary } from "@/lib/breakdowns/types";
 import { BreakdownVisual } from "./breakdown-visual";
 
 /**
@@ -11,7 +11,7 @@ export function BreakdownCard({
   breakdown,
   variant = "library",
 }: {
-  breakdown: Breakdown;
+  breakdown: BreakdownSummary;
   variant?: "feature" | "library";
 }) {
   const b = breakdown;
@@ -27,7 +27,9 @@ export function BreakdownCard({
 
         <div className={`flex flex-1 flex-col ${isFeature ? "p-6 md:p-7" : "p-5"}`}>
           <div className="flex items-center justify-between gap-3">
-            <span className="annotation text-accent">{b.category}</span>
+            <span className="annotation text-accent">
+              {b.eyebrow ?? b.category}
+            </span>
             <span className="annotation text-faint">{b.number}</span>
           </div>
 
@@ -40,8 +42,25 @@ export function BreakdownCard({
           </h3>
 
           <p className={`mt-3 leading-relaxed text-soft ${isFeature ? "text-[15px]" : "text-sm"}`}>
-            {b.insight}
+            {!isFeature && b.question ? b.question : b.insight}
           </p>
+
+          {!isFeature && (b.channel || b.problem) && (
+            <dl className="mt-4 grid grid-cols-2 gap-px border border-line bg-line text-xs">
+              {b.channel && (
+                <div className="bg-card p-3">
+                  <dt className="annotation text-faint">Channel</dt>
+                  <dd className="mt-1 text-ink">{b.channel}</dd>
+                </div>
+              )}
+              {b.problem && (
+                <div className="bg-card p-3">
+                  <dt className="annotation text-faint">Problem</dt>
+                  <dd className="mt-1 text-ink">{b.problem}</dd>
+                </div>
+              )}
+            </dl>
+          )}
 
           <div className="mt-auto pt-5">
             <div className="flex flex-wrap gap-1.5">

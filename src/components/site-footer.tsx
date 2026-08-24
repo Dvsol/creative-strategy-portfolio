@@ -25,11 +25,24 @@ export function SiteFooter() {
           </nav>
 
           <div>
-            <p className="annotation text-faint">Field note</p>
-            <p className="mt-3 text-sm leading-relaxed text-soft">
-              <span className="text-accent">*</span> Copying what worked is
-              imitation. Understanding why it worked is strategy.
-            </p>
+            <p className="annotation text-faint">Contact</p>
+            <ul className="mt-3 space-y-2 text-sm">
+              <li>
+                <a className="link-editorial" href="mailto:dekisola@gmail.com">
+                  Email
+                </a>
+              </li>
+              <li>
+                <a
+                  className="link-editorial"
+                  href="https://t.me/Dvsol2"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Telegram · @Dvsol2
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
 

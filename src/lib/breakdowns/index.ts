@@ -1,4 +1,6 @@
-import type { Breakdown } from "./types";
+import type { Breakdown, BreakdownInput, BreakdownSummary } from "./types";
+import { whatThe325kVideoRevealed } from "./data/what-the-325k-video-revealed";
+import { financialArchivesCrayonCapitalReverseEngineering } from "./data/financial-archives-crayon-capital-reverse-engineering";
 import { whyThisYoutubeChannelExploded } from "./data/why-this-youtube-channel-exploded";
 import { howABrandTurnedAttentionIntoDistribution } from "./data/how-a-brand-turned-attention-into-distribution";
 import { theThumbnailPatternNobodyNotices } from "./data/the-thumbnail-pattern-nobody-notices";
@@ -12,7 +14,9 @@ import { theCampaignThatLetTheAudienceFinishIt } from "./data/the-campaign-that-
  *  2. Import it here and add it to RAW (order doesn't matter).
  * Numbering, sorting, related items, and prev/next all derive automatically.
  */
-const RAW: Omit<Breakdown, "number">[] = [
+const RAW: BreakdownInput[] = [
+  financialArchivesCrayonCapitalReverseEngineering,
+  whatThe325kVideoRevealed,
   whyThisYoutubeChannelExploded,
   howABrandTurnedAttentionIntoDistribution,
   theThumbnailPatternNobodyNotices,
@@ -24,8 +28,16 @@ const RAW: Omit<Breakdown, "number">[] = [
 /** All breakdowns, newest first, with stable BD-numbers (oldest = 001). */
 export const breakdowns: Breakdown[] = [...RAW]
   .sort((a, b) => a.date.localeCompare(b.date))
-  .map((b, i) => ({ ...b, number: `BD—${String(i + 1).padStart(3, "0")}` }))
+  .map((b, i) => ({
+    ...b,
+    number: b.number ?? `BD—${String(i + 1).padStart(3, "0")}`,
+  }))
   .reverse();
+
+/** Lightweight catalog data; article bodies remain on the server. */
+export const breakdownSummaries: BreakdownSummary[] = breakdowns.map(
+  ({ sections: _sections, sources: _sources, ...summary }) => summary
+);
 
 export function getBreakdown(slug: string): Breakdown | undefined {
   return breakdowns.find((b) => b.slug === slug);
@@ -60,6 +72,7 @@ export function getRelated(slug: string, limit = 3): Breakdown[] {
       score += b.tags.filter((t) => current.tags.includes(t)).length;
       return { b, score };
     })
+    .filter(({ score }) => score > 0)
     .sort((x, y) => y.score - x.score)
     .slice(0, limit)
     .map((x) => x.b);

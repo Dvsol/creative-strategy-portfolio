@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import type { Breakdown, Category } from "@/lib/breakdowns/types";
+import type { BreakdownSummary, Category } from "@/lib/breakdowns/types";
 import { CATEGORIES } from "@/lib/breakdowns/types";
 import { BreakdownCard } from "./breakdown-card";
 
@@ -9,10 +9,10 @@ type Filter = "All" | Category;
 
 /**
  * Client-side search + category filtering for the breakdown library.
- * Receives the full (serializable) dataset from the server page, so it
- * scales to hundreds of entries without any backend changes.
+ * Receives lightweight, serializable summaries from the server page so full
+ * article bodies remain server-side.
  */
-export function LibraryExplorer({ breakdowns }: { breakdowns: Breakdown[] }) {
+export function LibraryExplorer({ breakdowns }: { breakdowns: BreakdownSummary[] }) {
   const [filter, setFilter] = useState<Filter>("All");
   const [query, setQuery] = useState("");
 
@@ -21,7 +21,19 @@ export function LibraryExplorer({ breakdowns }: { breakdowns: Breakdown[] }) {
     return breakdowns.filter((b) => {
       if (filter !== "All" && b.category !== filter) return false;
       if (!q) return true;
-      const haystack = [b.title, b.insight, b.subject, b.category, ...b.tags]
+      const haystack = [
+        b.title,
+        b.insight,
+        b.subject,
+        b.category,
+        b.categoryLabel,
+        b.channel,
+        b.comparisonChannel,
+        b.problem,
+        b.question,
+        ...b.tags,
+      ]
+        .filter(Boolean)
         .join(" ")
         .toLowerCase();
       return q.split(/\s+/).every((term) => haystack.includes(term));

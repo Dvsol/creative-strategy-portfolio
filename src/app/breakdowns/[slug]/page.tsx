@@ -75,7 +75,9 @@ export default async function BreakdownPage({
 
           <div className="mt-6 grid gap-10 lg:grid-cols-[1.5fr_1fr] lg:items-end">
             <div>
-              <p className="annotation text-accent">{b.category} · Strategy breakdown</p>
+              <p className="annotation text-accent">
+                {b.eyebrow ?? `${b.category} · Strategy breakdown`}
+              </p>
               <h1 className="display mt-4 text-4xl font-semibold leading-[1.08] tracking-tight md:text-6xl">
                 {b.title}
               </h1>
@@ -178,6 +180,14 @@ export default async function BreakdownPage({
                 </li>
               ))}
             </ul>
+            {s.closingNote && (
+              <aside className="mt-7 border-l-2 border-accent bg-accentwash px-6 py-5">
+                <p className="annotation text-accentink">Final Ekis note</p>
+                <p className="display mt-3 whitespace-pre-line text-xl leading-relaxed text-ink md:text-2xl">
+                  “{s.closingNote}”
+                </p>
+              </aside>
+            )}
           </Section>
 
           {/* CTA */}

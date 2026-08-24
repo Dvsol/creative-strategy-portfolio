@@ -142,6 +142,19 @@ export default function HomePage() {
               Creative strategy, YouTube strategy, audits, and research-heavy
               breakdowns — for founders, creators, brands, and teams.
             </p>
+            <p className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm text-paper/70">
+              <a className="link-editorial" href="mailto:dekisola@gmail.com">
+                dekisola@gmail.com
+              </a>
+              <a
+                className="link-editorial"
+                href="https://t.me/Dvsol2"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Telegram · @Dvsol2
+              </a>
+            </p>
           </div>
           <Link
             href="/work-with-me"

@@ -130,6 +130,22 @@ export default function WorkWithMePage() {
                 tell which of five theories is right.”
               </p>
             </div>
+            <div className="mt-8">
+              <p className="annotation text-faint">Prefer a direct message?</p>
+              <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm">
+                <a className="link-editorial" href="mailto:dekisola@gmail.com">
+                  dekisola@gmail.com
+                </a>
+                <a
+                  className="link-editorial"
+                  href="https://t.me/Dvsol2"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Telegram · @Dvsol2
+                </a>
+              </div>
+            </div>
           </div>
           <InquiryForm />
         </div>
