@@ -25,8 +25,20 @@ const RAW: BreakdownInput[] = [
   theCampaignThatLetTheAudienceFinishIt,
 ];
 
-/** All breakdowns, newest first, with stable BD-numbers (oldest = 001). */
-export const breakdowns: Breakdown[] = [...RAW]
+/**
+ * Only finished Field Notes belong in the public site. Draft data remains in
+ * RAW so future work is not deleted, but it cannot appear in routes, cards,
+ * filters, counts, featured work, related items, or adjacent navigation.
+ */
+const PUBLISHED_SLUGS = new Set([
+  "ziad-shares-325k-video-audience-demand",
+  "financial-archives-crayon-capital-reverse-engineering",
+]);
+
+/** Published breakdowns, newest first, with stable BD-numbers (oldest = 001). */
+export const breakdowns: Breakdown[] = RAW.filter((b) =>
+  PUBLISHED_SLUGS.has(b.slug)
+)
   .sort((a, b) => a.date.localeCompare(b.date))
   .map((b, i) => ({
     ...b,

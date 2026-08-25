@@ -275,8 +275,11 @@ function BlockRenderer({
                 {idx === 0 ? "A —" : "B —"} {side.title}
               </p>
               <ul className="mt-3 space-y-2">
-                {side.points.map((point) => (
-                  <li key={point} className="flex gap-2.5 text-sm leading-relaxed text-ink/85">
+                {side.points.map((point, pointIndex) => (
+                  <li
+                    key={`${point}-${pointIndex}`}
+                    className="flex gap-2.5 text-sm leading-relaxed text-ink/85"
+                  >
                     <span aria-hidden="true" className={idx === 1 ? "text-accent" : "text-faint"}>
                       {idx === 1 ? "+" : "–"}
                     </span>

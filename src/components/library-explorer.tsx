@@ -2,7 +2,6 @@
 
 import { useMemo, useState } from "react";
 import type { BreakdownSummary, Category } from "@/lib/breakdowns/types";
-import { CATEGORIES } from "@/lib/breakdowns/types";
 import { BreakdownCard } from "./breakdown-card";
 
 type Filter = "All" | Category;
@@ -40,7 +39,10 @@ export function LibraryExplorer({ breakdowns }: { breakdowns: BreakdownSummary[]
     });
   }, [breakdowns, filter, query]);
 
-  const filters: Filter[] = ["All", ...CATEGORIES];
+  const filters: Filter[] = [
+    "All",
+    ...Array.from(new Set(breakdowns.map((b) => b.category))),
+  ];
 
   return (
     <div>
