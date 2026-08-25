@@ -25,7 +25,17 @@ export async function generateMetadata({
   const { slug } = await params;
   const b = getBreakdown(slug);
   if (!b) return { title: "Breakdown not found" };
-  return { title: b.title, description: b.insight };
+  return {
+    title: b.title,
+    description: b.insight,
+    alternates: { canonical: `/breakdowns/${b.slug}` },
+    openGraph: {
+      type: "article",
+      title: b.title,
+      description: b.insight,
+      url: `/breakdowns/${b.slug}`,
+    },
+  };
 }
 
 const SECTION_INDEX = [
@@ -190,16 +200,28 @@ export default async function BreakdownPage({
             )}
           </Section>
 
-          {/* CTA */}
-          <aside className="border border-line bg-wash/70 p-6 md:p-7">
-            <p className="annotation text-accent">▸ Field note</p>
-            <p className="mt-2.5 text-[15px] leading-relaxed text-ink/90">
-              Want this kind of analysis pointed at your channel, brand, or
-              product?{" "}
-              <Link href="/work-with-me" className="link-editorial font-medium">
-                See how we could work together →
-              </Link>
+          {/* Contextual conversion path */}
+          <aside className="border border-line bg-wash/70 p-6 md:p-8" aria-labelledby="field-note-cta-title">
+            <p className="annotation text-accent">§ Work with me</p>
+            <h2 id="field-note-cta-title" className="display mt-3 text-2xl font-semibold md:text-3xl">
+              Want me to look at your channel?
+            </h2>
+            <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-ink/90">
+              I work with creators and brands on YouTube strategy, from
+              diagnosing what may be limiting a channel to building the next
+              testing direction.
             </p>
+            <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-4">
+              <Link
+                href="/work-with-me"
+                className="annotation bg-ink px-5 py-3 text-paper transition-colors hover:bg-accent"
+              >
+                Work With Me →
+              </Link>
+              <Link href="/breakdowns" className="link-editorial annotation text-soft">
+                More Breakdowns →
+              </Link>
+            </div>
           </aside>
         </div>
       </div>

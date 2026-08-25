@@ -53,9 +53,10 @@ export default function WorkWithMePage() {
             The breakdowns are public. <span className="marker">The application is the work.</span>
           </h1>
           <p className="rise rise-2 mt-6 max-w-2xl text-lg leading-relaxed text-soft">
-            Everything in the library — the deconstruction, the pattern-finding,
-            the principle extraction — can be pointed at your channel, brand,
-            product, or campaign. That&apos;s the job.
+            I help creators and brands diagnose what may be limiting a YouTube
+            channel, understand what the audience is responding to, and decide
+            what to test next. The same research discipline in the Field Notes
+            gets applied to your work.
           </p>
         </div>
       </section>
@@ -99,13 +100,11 @@ export default function WorkWithMePage() {
             ))}
           </ol>
           <p className="annotation mt-6 text-faint">
-            <span className="text-accent">*</span> No testimonials wall, no
-            logo carousel, no invented numbers. Read the{" "}
+            Read the{" "}
             <Link href="/breakdowns" className="link-editorial text-soft">
               breakdowns
             </Link>{" "}
-            — they&apos;re a more honest signal of how I think than anything I
-            could claim here.
+            — they&apos;re the clearest signal of how I think before you get in touch.
           </p>
         </div>
       </section>

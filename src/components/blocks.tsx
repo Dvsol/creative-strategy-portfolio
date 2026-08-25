@@ -14,9 +14,12 @@ export function Blocks({
   figureStart?: number;
 }) {
   let figureIndex = figureStart;
+  const visibleBlocks = blocks.filter(
+    (block) => block.type !== "figure" || Boolean(block.src)
+  );
   return (
     <div className="space-y-7">
-      {blocks.map((block, i) => {
+      {visibleBlocks.map((block, i) => {
         const fig = block.type === "figure" ? ++figureIndex : 0;
         return <BlockRenderer key={i} block={block} figureNumber={fig} />;
       })}
@@ -26,7 +29,7 @@ export function Blocks({
 
 /** Count figures in a block list — used by the template to keep numbering continuous. */
 export function countFigures(blocks: Block[]): number {
-  return blocks.filter((b) => b.type === "figure").length;
+  return blocks.filter((b) => b.type === "figure" && Boolean(b.src)).length;
 }
 
 function BlockRenderer({

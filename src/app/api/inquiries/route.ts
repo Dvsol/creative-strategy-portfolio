@@ -36,12 +36,23 @@ export async function POST(request: Request) {
     );
   }
 
-  await db.insert(inquiries).values({
-    name: name.trim().slice(0, 200),
-    email: email.trim().slice(0, 200),
-    service,
-    message: message.trim().slice(0, 5000),
-  });
+  try {
+    await db.insert(inquiries).values({
+      name: name.trim().slice(0, 200),
+      email: email.trim().slice(0, 200),
+      service,
+      message: message.trim().slice(0, 5000),
+    });
+  } catch (error) {
+    console.error("Inquiry submission failed", error);
+    return NextResponse.json(
+      {
+        error:
+          "I couldn't file this inquiry right now. Please email dekisola@gmail.com instead.",
+      },
+      { status: 500 }
+    );
+  }
 
   return NextResponse.json({ ok: true }, { status: 201 });
 }

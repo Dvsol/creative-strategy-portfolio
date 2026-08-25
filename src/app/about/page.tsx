@@ -71,18 +71,27 @@ export default function AboutPage() {
             </div>
           </div>
 
-          {/* Portrait slot — intentionally optional */}
           <div className="rise rise-3">
-            <div className="graph-paper relative flex aspect-[4/5] items-center justify-center border border-line bg-wash">
-              <div className="border border-dashed border-linedark bg-paper px-5 py-4 text-center">
-                <p className="annotation text-accent">[ portrait ]</p>
-                <p className="annotation mt-1.5 text-faint">
-                  reserved — the work matters more
-                </p>
-              </div>
-              <span className="annotation absolute left-3 top-3 text-faint">FIG. 00</span>
-              <span aria-hidden="true" className="absolute right-3 top-3 h-2 w-2 border-r border-t border-accent" />
-              <span aria-hidden="true" className="absolute bottom-3 left-3 h-2 w-2 border-b border-l border-accent" />
+            <div className="border border-line bg-card p-6 md:p-7">
+              <p className="annotation text-accent">§ Current archive</p>
+              <h2 className="display mt-3 text-2xl font-semibold">
+                Two studies. One working method.
+              </h2>
+              <ol className="mt-6 divide-y divide-line border-y border-line">
+                {breakdowns.map((breakdown) => (
+                  <li key={breakdown.slug}>
+                    <Link
+                      href={`/breakdowns/${breakdown.slug}`}
+                      className="group flex items-start gap-4 py-4"
+                    >
+                      <span className="annotation shrink-0 text-accent">{breakdown.number}</span>
+                      <span className="display text-lg font-semibold leading-snug group-hover:underline group-hover:underline-offset-4">
+                        {breakdown.title}
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ol>
             </div>
             <dl className="mt-4 grid grid-cols-2 gap-px border border-line bg-line text-sm">
               <div className="bg-card p-4">

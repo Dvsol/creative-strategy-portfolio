@@ -43,11 +43,12 @@ export function LibraryExplorer({ breakdowns }: { breakdowns: BreakdownSummary[]
     "All",
     ...Array.from(new Set(breakdowns.map((b) => b.category))),
   ];
+  const showControls = breakdowns.length > 2 || filters.length > 2;
 
   return (
     <div>
-      {/* Controls */}
-      <div className="flex flex-col gap-5 border-y border-line py-5 lg:flex-row lg:items-center lg:justify-between">
+      {/* Controls stay available as the archive grows, but add noise for two studies. */}
+      {showControls && <div className="flex flex-col gap-5 border-y border-line py-5 lg:flex-row lg:items-center lg:justify-between">
         <div role="group" aria-label="Filter by category" className="flex flex-wrap gap-2">
           {filters.map((f) => {
             const active = filter === f;
@@ -92,10 +93,10 @@ export function LibraryExplorer({ breakdowns }: { breakdowns: BreakdownSummary[]
             ⌕
           </span>
         </div>
-      </div>
+      </div>}
 
       {/* Result annotation */}
-      <p className="annotation mt-5 text-faint" aria-live="polite">
+      <p className={`annotation text-faint ${showControls ? "mt-5" : "border-y border-line py-5"}`} aria-live="polite">
         {results.length} {results.length === 1 ? "study" : "studies"}
         {filter !== "All" && <> · filed under <span className="text-accent">{filter}</span></>}
         {query.trim() && <> · matching “{query.trim()}”</>}

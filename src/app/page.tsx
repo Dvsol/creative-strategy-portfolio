@@ -43,8 +43,8 @@ export default function HomePage() {
           </h1>
 
           <p className="rise rise-2 mt-7 max-w-xl text-lg leading-relaxed text-soft">
-            Then I turn those observations into strategies creators, brands,
-            and products can actually use.
+            Then I turn those observations into YouTube strategies creators
+            and brands can actually use.
           </p>
 
           <div className="rise rise-3 mt-9 flex flex-wrap items-center gap-4">
@@ -65,7 +65,7 @@ export default function HomePage() {
           {/* Analytical margin notes */}
           <div className="rise rise-3 mt-14 grid max-w-3xl gap-px border border-line bg-line sm:grid-cols-3">
             {[
-              ["Subjects", "Content · creators · brands · campaigns · products"],
+              ["Subjects", "YouTube · creators · brands · channels"],
               ["Method", "Deconstruct the win, extract the mechanism"],
               ["Output", "Principles that transfer, not tactics that expire"],
             ].map(([label, value]) => (
@@ -96,6 +96,46 @@ export default function HomePage() {
           {featured.map((b) => (
             <BreakdownCard key={b.slug} breakdown={b} variant="feature" />
           ))}
+        </div>
+      </section>
+
+      {/* ---------------- HOW I HELP ---------------- */}
+      <section aria-labelledby="help-title" className="border-t border-line bg-wash/40">
+        <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-24">
+          <div className="grid gap-8 md:grid-cols-[1fr_1.4fr] md:items-end">
+            <div>
+              <p className="annotation text-accent">§ YouTube strategy</p>
+              <h2 id="help-title" className="display mt-3 text-3xl font-semibold md:text-5xl">
+                From diagnosis to direction.
+              </h2>
+            </div>
+            <p className="max-w-2xl text-[17px] leading-[1.8] text-ink/90">
+              I help creators and brands understand what is limiting their
+              YouTube channel, what their audience is responding to, and what
+              to test next.
+            </p>
+          </div>
+
+          <div className="mt-10 grid gap-px border border-line bg-line sm:grid-cols-2 lg:grid-cols-5">
+            {[
+              ["Diagnosis", "Find what is actually limiting the channel."],
+              ["Ideas", "Identify topics and formats worth testing."],
+              ["Packaging", "Improve the relationship between idea, title and thumbnail."],
+              ["Audience", "Understand who the channel is really attracting."],
+              ["Testing", "Turn observations into a clear next-video strategy."],
+            ].map(([label, text], i) => (
+              <div key={label} className="bg-card p-5">
+                <p className="annotation text-accent">
+                  {String(i + 1).padStart(2, "0")} · {label}
+                </p>
+                <p className="mt-3 text-sm leading-relaxed text-soft">{text}</p>
+              </div>
+            ))}
+          </div>
+
+          <Link href="/work-with-me" className="link-editorial annotation mt-7 inline-block text-soft">
+            See how I work with channels →
+          </Link>
         </div>
       </section>
 

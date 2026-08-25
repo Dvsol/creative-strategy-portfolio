@@ -8,9 +8,9 @@ export function SiteFooter() {
           <div>
             <p className="display text-xl font-semibold">Field Notes</p>
             <p className="mt-3 max-w-sm text-sm leading-relaxed text-soft">
-              A working library of strategy breakdowns — content, creators,
-              brands, campaigns, and products, taken apart to understand why
-              they worked.
+              A working library of YouTube strategy breakdowns — channels,
+              ideas, packaging, and audience behavior, taken apart to
+              understand why they worked.
             </p>
           </div>
 

@@ -22,13 +22,27 @@ const plexMono = IBM_Plex_Mono({
   variable: "--font-plex-mono",
 });
 
+const siteDescription =
+  "YouTube strategy Field Notes for creators and brands — channels, ideas, packaging, and audience behavior taken apart to understand why they worked.";
+const vercelHost =
+  process.env.VERCEL_PROJECT_PRODUCTION_URL ?? process.env.VERCEL_URL;
+const metadataBase = vercelHost ? new URL(`https://${vercelHost}`) : undefined;
+
 export const metadata: Metadata = {
+  metadataBase,
   title: {
     default: "Field Notes — Understand Why It Worked",
     template: "%s — Field Notes",
   },
-  description:
-    "Strategy breakdowns of content, creators, brands, campaigns, and products — taken apart to understand why they worked.",
+  description: siteDescription,
+  alternates: metadataBase ? { canonical: "/" } : undefined,
+  openGraph: {
+    type: "website",
+    siteName: "Field Notes",
+    title: "Field Notes — Understand Why It Worked",
+    description: siteDescription,
+    url: metadataBase ?? undefined,
+  },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

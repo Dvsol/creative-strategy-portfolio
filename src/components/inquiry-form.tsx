@@ -18,6 +18,7 @@ export function InquiryForm() {
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (status === "submitting") return;
     const form = e.currentTarget;
     const data = new FormData(form);
     setStatus("submitting");
@@ -52,8 +53,8 @@ export function InquiryForm() {
         <p className="annotation text-accentink">◆ Inquiry filed</p>
         <p className="display mt-3 text-2xl font-semibold">Got it. I&apos;ll be in touch.</p>
         <p className="mx-auto mt-2 max-w-sm text-sm leading-relaxed text-soft">
-          I read every inquiry personally and reply to the ones that are a fit
-          — usually within a few days.
+          I read every inquiry personally. If the project looks like a fit,
+          I&apos;ll reply by email with the next step.
         </p>
         <button
           type="button"
@@ -67,7 +68,11 @@ export function InquiryForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="border border-line bg-card p-6 md:p-8">
+    <form
+      onSubmit={handleSubmit}
+      aria-busy={status === "submitting"}
+      className="border border-line bg-card p-6 md:p-8"
+    >
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor="inq-name" className="annotation text-soft">
@@ -79,8 +84,9 @@ export function InquiryForm() {
             type="text"
             required
             minLength={2}
+            maxLength={200}
             autoComplete="name"
-            className="mt-2 w-full border border-line bg-paper px-4 py-3 text-sm focus:border-accent focus:outline-none"
+            className="mt-2 w-full border border-line bg-paper px-4 py-3 text-sm focus:border-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/30"
             placeholder="Your name"
           />
         </div>
@@ -93,8 +99,9 @@ export function InquiryForm() {
             name="email"
             type="email"
             required
+            maxLength={200}
             autoComplete="email"
-            className="mt-2 w-full border border-line bg-paper px-4 py-3 text-sm focus:border-accent focus:outline-none"
+            className="mt-2 w-full border border-line bg-paper px-4 py-3 text-sm focus:border-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/30"
             placeholder="you@example.com"
           />
         </div>
@@ -109,7 +116,7 @@ export function InquiryForm() {
           name="service"
           required
           defaultValue=""
-          className="mt-2 w-full border border-line bg-paper px-4 py-3 text-sm focus:border-accent focus:outline-none"
+          className="mt-2 w-full border border-line bg-paper px-4 py-3 text-sm focus:border-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/30"
         >
           <option value="" disabled>
             Choose a starting point…
@@ -131,10 +138,15 @@ export function InquiryForm() {
           name="message"
           required
           minLength={10}
+          maxLength={5000}
           rows={5}
-          className="mt-2 w-full resize-y border border-line bg-paper px-4 py-3 text-sm leading-relaxed focus:border-accent focus:outline-none"
+          aria-describedby="inq-message-help"
+          className="mt-2 w-full resize-y border border-line bg-paper px-4 py-3 text-sm leading-relaxed focus:border-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/30"
           placeholder="A few sentences about your channel, brand, product, or question — and what 'working' would look like for you."
         />
+        <p id="inq-message-help" className="mt-2 text-xs leading-relaxed text-faint">
+          Include what you have tried, what happened, and what you are unsure about.
+        </p>
       </div>
 
       {status === "error" && error && (
@@ -150,7 +162,7 @@ export function InquiryForm() {
         <button
           type="submit"
           disabled={status === "submitting"}
-          className="annotation bg-ink px-6 py-3.5 text-paper transition-colors hover:bg-accent disabled:cursor-not-allowed disabled:opacity-60"
+          className="annotation bg-ink px-6 py-3.5 text-paper transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
         >
           {status === "submitting" ? "Sending…" : "Send inquiry →"}
         </button>
