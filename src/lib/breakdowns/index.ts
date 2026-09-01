@@ -2,6 +2,7 @@ import type { Breakdown, BreakdownInput, BreakdownSummary } from "./types";
 import { whatThe325kVideoRevealed } from "./data/what-the-325k-video-revealed";
 import { financialArchivesCrayonCapitalReverseEngineering } from "./data/financial-archives-crayon-capital-reverse-engineering";
 import { managementConsultedYoutubeAudienceSequencing } from "./data/management-consulted-youtube-audience-sequencing";
+import { earlyRetirementRoadmap } from "./data/early-retirement-roadmap";
 import { whyThisYoutubeChannelExploded } from "./data/why-this-youtube-channel-exploded";
 import { howABrandTurnedAttentionIntoDistribution } from "./data/how-a-brand-turned-attention-into-distribution";
 import { theThumbnailPatternNobodyNotices } from "./data/the-thumbnail-pattern-nobody-notices";
@@ -16,6 +17,7 @@ import { theCampaignThatLetTheAudienceFinishIt } from "./data/the-campaign-that-
  * Numbering, sorting, related items, and prev/next all derive automatically.
  */
 const RAW: BreakdownInput[] = [
+  earlyRetirementRoadmap,
   managementConsultedYoutubeAudienceSequencing,
   financialArchivesCrayonCapitalReverseEngineering,
   whatThe325kVideoRevealed,
@@ -36,6 +38,7 @@ const PUBLISHED_SLUGS = new Set([
   "ziad-shares-325k-video-audience-demand",
   "financial-archives-crayon-capital-reverse-engineering",
   "management-consulted-youtube-audience-sequencing",
+  "early-retirement-roadmap",
 ]);
 
 /** Published breakdowns, newest first, with stable BD-numbers (oldest = 001). */
