@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const SERVICES = [
   "Creative Strategy",
@@ -15,6 +15,14 @@ type Status = "idle" | "submitting" | "success" | "error";
 export function InquiryForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState<string | null>(null);
+  const successRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (status === "success") {
+      successRef.current?.focus({ preventScroll: true });
+      successRef.current?.scrollIntoView({ block: "center", behavior: "instant" });
+    }
+  }, [status]);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -32,7 +40,11 @@ export function InquiryForm() {
           name: data.get("name"),
           email: data.get("email"),
           service: data.get("service"),
-          message: data.get("message"),
+          message: [
+            `YouTube channel: ${data.get("channel")}`,
+            `Goal: ${data.get("message")}`,
+            `What's holding the channel back: ${String(data.get("bottleneck") ?? "").trim() || "Not sure yet"}`,
+          ].join("\n\n"),
         }),
       });
       if (!res.ok) {
@@ -49,8 +61,8 @@ export function InquiryForm() {
 
   if (status === "success") {
     return (
-      <div className="border border-accent bg-accentwash p-8 text-center" role="status">
-        <p className="annotation text-accentink">◆ Inquiry filed</p>
+      <div ref={successRef} tabIndex={-1} className="border border-accent bg-accentwash p-8 text-center" role="status">
+        <p className="annotation text-accentink">Application received</p>
         <p className="display mt-3 text-2xl font-semibold">Got it. I&apos;ll be in touch.</p>
         <p className="mx-auto mt-2 max-w-sm text-sm leading-relaxed text-soft">
           I read every inquiry personally. If the project looks like a fit,
@@ -108,8 +120,24 @@ export function InquiryForm() {
       </div>
 
       <div className="mt-5">
+        <label htmlFor="inq-channel" className="annotation text-soft">
+          YouTube channel URL <span className="text-accent">*</span>
+        </label>
+        <input
+          id="inq-channel"
+          name="channel"
+          type="url"
+          required
+          maxLength={500}
+          autoComplete="url"
+          className="mt-2 w-full border border-line bg-paper px-4 py-3 text-sm focus:border-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/30"
+          placeholder="https://www.youtube.com/@yourchannel"
+        />
+      </div>
+
+      <div className="mt-5">
         <label htmlFor="inq-service" className="annotation text-soft">
-          What are you looking for? <span className="text-accent">*</span>
+          What kind of help are you looking for? <span className="text-accent">*</span>
         </label>
         <select
           id="inq-service"
@@ -131,22 +159,32 @@ export function InquiryForm() {
 
       <div className="mt-5">
         <label htmlFor="inq-message" className="annotation text-soft">
-          What are you working on? <span className="text-accent">*</span>
+          What are you trying to achieve? <span className="text-accent">*</span>
         </label>
         <textarea
           id="inq-message"
           name="message"
           required
           minLength={10}
-          maxLength={5000}
-          rows={5}
-          aria-describedby="inq-message-help"
+          maxLength={2000}
+          rows={3}
           className="mt-2 w-full resize-y border border-line bg-paper px-4 py-3 text-sm leading-relaxed focus:border-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/30"
-          placeholder="A few sentences about your channel, brand, product, or question — and what 'working' would look like for you."
+          placeholder="A few sentences about what you want to change or accomplish."
         />
-        <p id="inq-message-help" className="mt-2 text-xs leading-relaxed text-faint">
-          Include what you have tried, what happened, and what you are unsure about.
-        </p>
+      </div>
+
+      <div className="mt-5">
+        <label htmlFor="inq-bottleneck" className="annotation text-soft">
+          What do you think is holding the channel back? (optional)
+        </label>
+        <textarea
+          id="inq-bottleneck"
+          name="bottleneck"
+          maxLength={2000}
+          rows={3}
+          className="mt-2 w-full resize-y border border-line bg-paper px-4 py-3 text-sm leading-relaxed focus:border-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/30"
+          placeholder="Share what you've noticed—or leave this blank if you're not sure."
+        />
       </div>
 
       {status === "error" && error && (
@@ -164,7 +202,7 @@ export function InquiryForm() {
           disabled={status === "submitting"}
           className="annotation bg-ink px-6 py-3.5 text-paper transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {status === "submitting" ? "Sending…" : "Send inquiry →"}
+          {status === "submitting" ? "Sending…" : "Send application"}
         </button>
       </div>
     </form>
