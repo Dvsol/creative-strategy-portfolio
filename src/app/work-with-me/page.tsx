@@ -143,6 +143,14 @@ export default function WorkWithMePage() {
                 >
                   Telegram · @Dvsol2
                 </a>
+                <a
+                  className="link-editorial"
+                  href="https://x.com/Dv_sol1"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  X / Twitter · @Dv_sol1
+                </a>
               </div>
             </div>
           </div>

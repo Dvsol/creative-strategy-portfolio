@@ -147,6 +147,7 @@ export default function HomePage() {
           <div className="mt-7 flex flex-wrap gap-x-6 gap-y-3 text-sm text-paper/80">
             <a href="mailto:dekisola@gmail.com" className="underline decoration-paper/40 underline-offset-4 hover:decoration-paper">dekisola@gmail.com</a>
             <a href="https://t.me/Dvsol2" target="_blank" rel="noreferrer" className="underline decoration-paper/40 underline-offset-4 hover:decoration-paper">Telegram · @Dvsol2</a>
+            <a href="https://x.com/Dv_sol1" target="_blank" rel="noreferrer" className="underline decoration-paper/40 underline-offset-4 hover:decoration-paper">X / Twitter · @Dv_sol1</a>
           </div>
         </div>
       </section>

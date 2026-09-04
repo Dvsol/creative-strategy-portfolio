@@ -42,6 +42,16 @@ export function SiteFooter() {
                   Telegram · @Dvsol2
                 </a>
               </li>
+              <li>
+                <a
+                  className="link-editorial"
+                  href="https://x.com/Dv_sol1"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  X / Twitter · @Dv_sol1
+                </a>
+              </li>
             </ul>
           </div>
         </div>
